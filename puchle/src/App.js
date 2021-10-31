@@ -2,7 +2,7 @@
 import './App.css';
 
 import React, { Component } from "react";
-import "./App.css";
+
 
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -31,7 +31,7 @@ class App extends Component {
     this.state = {
       firstName: null,
       lastName: null,
-     
+      phone:null,
       email: null,
       collegeName: null,
       grade: null,
@@ -39,7 +39,7 @@ class App extends Component {
       formErrors: {
         firstName: "",
         lastName: "",
-
+        phone:"",
         email: "",
         collegeName: "",
         grade: "",
@@ -56,7 +56,7 @@ class App extends Component {
         --SUBMITTING--
         First Name: ${this.state.firstName}
         Last Name: ${this.state.lastName}
-        
+        phone:${this.state.phone}
         Email: ${this.state.email}
         College Name: ${this.state.collegeName}
         Grade: ${this.state.grade}
@@ -92,6 +92,10 @@ class App extends Component {
         formErrors.collegeName =
         value.length < 2 ? "minimum 2 character required" : "";
         break;
+
+      case "phone":
+          formErrors.phone = value.length != 10 ? "10 numbers required": "";
+          break;
 
       case "grade":
         formErrors.grade =
@@ -178,6 +182,21 @@ class App extends Component {
               />
               {formErrors.collegeName.length > 0 && (
                 <span className="errorMessage">{formErrors.collegeName}</span>
+              )}
+            </div>
+
+            <div className="grade">
+              <label htmlFor="grade">Phone</label>
+              <input
+                className={formErrors.phone.length != 10  ? "error" : null}
+                placeholder="phone"
+                type="number"
+                name="phone"
+                noValidate
+                onChange={this.handleChange}
+              />
+              {formErrors.phone.length != 10 && (
+                <span className="errorMessage">{formErrors.phone}</span>
               )}
             </div>
 
